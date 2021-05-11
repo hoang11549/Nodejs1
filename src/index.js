@@ -3,7 +3,7 @@ const express = require('express');
 var morgan = require('morgan');
 var handlebars = require('express-handlebars');
 //connectDB
-const db= require('./config/db/index');
+const db = require('./config/db/index');
 db.connect();
 
 const app = express();
@@ -15,7 +15,6 @@ const route = require('./routes');
 //HTTP logger
 app.use(morgan('combined'));
 
-
 //Template engine
 app.engine(
     'hbs',
@@ -24,7 +23,7 @@ app.engine(
     }),
 );
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'resource','views'));
+app.set('views', path.join(__dirname, 'resource', 'views'));
 
 //route init
 route(app);
