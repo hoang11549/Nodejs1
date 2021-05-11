@@ -4,6 +4,4 @@ const meController = require('../app/controller/MeController');
 
 router.get('/stored/courses', meController.storedCourses);
 
-
-
 module.exports = router;
