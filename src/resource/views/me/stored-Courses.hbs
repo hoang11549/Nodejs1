@@ -19,10 +19,52 @@
                 <td>@{{this.createdAt}}</td>
                 <td>
                     <a href="/courses/{{this._id}}/edit" class="btn btn-link"> update</a>
-                    <a href="" class="btn btn-link"> Delete</a>
+                    <button id="btn-delete-course" class="btn btn-link" data-bs-toggle="modal" data-id="{{this._id}}"
+                        data-bs-target="#delete-courses"> Delete</button>
                 </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 </div>
+
+
+{{!-- Confirm delete --}}
+<div class="modal fade" id="delete-courses" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure delete This course
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-delete-courses" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<form name="delete-course-form" method="POST"></form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var courseId
+        var deleteForm = document.forms['delete-course-form'];
+        var btndeletecourse = document.getElementById['btn-delete-course'];
+        $('#delete-courses').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            courseId = button.data('id');
+
+        });
+        var btndeletecourse = document.getElementById('btn-delete-courses');
+        btndeletecourse.onclick = function () {
+
+            deleteForm.action = '/courses/' + courseId + '?_method=DELETE';
+            deleteForm.submit();
+        }
+    });
+
+</script>

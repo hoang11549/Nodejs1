@@ -6,6 +6,7 @@ async function connect() {
             useUnifiedTopology: true,
             useFindAndModify: false,
             useCreateIndex: true,
+            
         });
         console.log('Connect scf!!!');
     } catch (error) {
