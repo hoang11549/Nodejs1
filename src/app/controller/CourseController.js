@@ -4,6 +4,7 @@ const { MongooseToObject } = require('../../util/mongoose');
 class CourseController {
     // course/:slug
     show(req, res, next) {
+        
         Course.findOne({ slug: req.params.slug })
             .then((course) =>
                 res.render('courses/show', {
