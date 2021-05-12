@@ -26,9 +26,16 @@
                 <tr>
                     <th scope="col">check</th>
                     <th scope="col">stt</th>
-                    <th scope="col">Course name</th>
-                    <th scope="col">Level</th>
-                    <th scope="col">Date Time</th>
+                    <th scope="col">Course name
+                        {{{sortable 'name' _sort}}}
+
+                    </th>
+                    <th scope="col">Level
+                        {{{sortable 'level' _sort}}}
+                    </th>
+                    <th scope="col">Date Time
+                        {{{sortable 'createdAt' _sort}}}
+                    </th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -95,7 +102,8 @@
         var checkboxAll = $('#checkbox-all');
         var courseItemCheck = $('input[name="courseIds[]"]');
         var CheckAllsubmit = $('.btn-Submit-check');
-        var containerform = document.forms['container-form']
+        //var containerform = document.forms['container-form'];
+        var containerform = $('form[name="container-form"]');
 
         $('#delete-courses').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
@@ -127,9 +135,9 @@
             }
         });
         //validate check form
-        CheckAllsubmit.on('submit', function (e) {
-            e.preventDefault();
-            var issubmittable = !$(this).hasClass('disabled');
+        containerform.on('submit', function (e) {
+
+            var issubmittable = !CheckAllsubmit.hasClass('disabled');
             if (!issubmittable) {
                 e.preventDefault();
             }

@@ -12,10 +12,14 @@ const port = 3000;
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+const sortMiddlewares = require('./app/middlewares/sortMiddlewares');
 const route = require('./routes');
 //HTTP logger
 app.use(morgan('combined'));
 app.use(methodOverride('_method'));
+
+// cusstom middleware
+app.use(sortMiddlewares);
 //Template engine
 app.engine(
     'hbs',
@@ -23,6 +27,23 @@ app.engine(
         extname: '.hbs',
         helpers: {
             sum: (a, b) => a + b,
+            sortable:(field,sort)=>{
+                const sortType = field === sort.column? sort.type: 'default';
+                const icons={
+                    default:'fas fa-sort',
+                    asc: 'fas fa-sort-amount-down-alt',
+                    desc: 'fas fa-sort-amount-up-alt',
+                };
+                const types ={
+                    defaut:'default',
+                    asc:'desc',
+                    desc:'asc',
+                };
+                const icon = icons[sortType];
+                const type = types[sort.type];
+                return '  <a href="?_sort&column='+field+'&type='+type+'"><i class="'+icon+'"></i></a>';
+
+            }
         },
     }),
 );
