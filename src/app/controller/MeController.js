@@ -6,9 +6,10 @@ class MeController {
        
         let CourseQuery= Course.find({});
         if(req.query.hasOwnProperty('_sort')){
+            const isValidtype= ['asc','desc'].includes(req.query.type);
             CourseQuery= CourseQuery.sort({
-                [req.query.column]: req.query.type
-            })
+                [req.query.column]: isValidtype ? req.query.type :'desc', 
+            });
         }
         Promise.all([CourseQuery.find({}), Course.countDocumentsDeleted({})])
             .then(([courses, deleteCount])=> res.render('me/stored-Courses.hbs', {
